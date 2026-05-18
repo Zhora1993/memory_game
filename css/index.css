@@ -1,0 +1,626 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Hintergrund */
+body {
+    min-height: 100vh;
+    background: #060620;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Glowing Orbs */
+.orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #6644ff, #4422cc);
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.orb-2 {
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, #dd44bb, #aa22cc);
+    bottom: 50px;
+    left: -80px;
+}
+
+.orb-3 {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, #4488ff, #2244cc);
+    bottom: 80px;
+    right: -60px;
+}
+
+/* Hauptcontainer */
+.hauptGalaxy {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 40px;
+}
+
+/* Title — überall */
+.title {
+    font-size: 54px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-align: center;
+
+    background: linear-gradient(90deg, #ffd700, #ff9de2, #a78bfa, #7dd3fc, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 300%;
+
+    filter: drop-shadow(0 0 18px rgba(200, 150, 255, 0.5));
+    animation: slideUp 0.8s ease both, shimmer 5s linear 1s infinite;
+}
+
+/* Panel-Überschriften */
+.panel-title {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 4px;
+
+    background: linear-gradient(90deg, #ffd700, #ff9de2, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200%;
+
+    animation: shimmer 4s linear infinite;
+}
+
+/* Spielfeld-Titel */
+.game-title {
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-align: center;
+
+    background: linear-gradient(90deg, #ffd700, #ff9de2, #a78bfa, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 300%;
+
+    filter: drop-shadow(0 0 14px rgba(200, 150, 255, 0.5));
+    animation: shimmer 5s linear infinite;
+}
+
+/* Untertitel Startseite */
+.start-sub {
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.75);
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+    animation: slideUp 0.6s ease 0.5s both;
+}
+
+/* Glassmorphism Box — Startseite */
+.startComponent {
+    padding: 50px 80px;
+    border-radius: 28px;
+
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+    animation: cardSlideIn 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.3s both;
+}
+
+/* ===== ALLE BUTTONS — einheitliches Design ===== */
+.startBtn,
+.cartenCountBtn,
+.itemCategorieBtn,
+.startBotton {
+    padding: 14px 36px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    position: relative;
+    overflow: hidden;
+
+    background: linear-gradient(135deg, #7c4dff, #e040fb, #ff6d9e);
+    background-size: 200%;
+    background-position: left center;
+
+    box-shadow: 0 4px 20px rgba(150, 60, 220, 0.45),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+
+    transition: all 0.35s ease;
+}
+
+/* Shine-Effekt auf Buttons */
+.startBtn::before,
+.cartenCountBtn::before,
+.itemCategorieBtn::before,
+.startBotton::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: left 0.45s ease;
+}
+
+.startBtn:hover::before,
+.cartenCountBtn:hover::before,
+.itemCategorieBtn:hover::before,
+.startBotton:hover::before {
+    left: 140%;
+}
+
+.startBtn:hover,
+.cartenCountBtn:hover,
+.itemCategorieBtn:hover,
+.startBotton:hover {
+    background-position: right center;
+    box-shadow: 0 6px 32px rgba(180, 60, 255, 0.65),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+    transform: translateY(-3px) scale(1.04);
+}
+
+.startBtn:active,
+.cartenCountBtn:active,
+.itemCategorieBtn:active,
+.startBotton:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 2px 12px rgba(150, 60, 220, 0.4);
+}
+
+/* Karten-Anzahl Panel */
+.cartenCountComponent {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+    padding: 36px 54px;
+    border-radius: 28px;
+
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+    color: white;
+    text-align: center;
+    animation: cardSlideIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+/* Kategorie Panel */
+.itemCategoreContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+    padding: 36px 54px;
+    border-radius: 28px;
+
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+    color: white;
+    text-align: center;
+    animation: cardSlideIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+/* Buttons-Reihe innerhalb Panel */
+.panel-btns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+}
+
+/* Spielfeld Layout */
+.hauptGalaxyFlex {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 30px 20px;
+    gap: 30px;
+
+    background: transparent;
+}
+
+/* Karten Grid */
+.itemContainer_flex {
+    display: grid;
+    justify-content: center;
+
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+
+    gap: 20px;
+
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Einzelne Karte */
+.item-img {
+    width: 140px;
+    height: 140px;
+
+    border-radius: 16px;
+    position: relative;
+
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(150, 120, 255, 0.35);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), 0 0 10px rgba(100, 70, 220, 0.15);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Glassmorphism-Rahmen bleibt immer sichtbar — auch wenn Bild gezeigt wird */
+.item-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Karten-Rückseite: Stern als Hinweis für Kinder */
+.item-img::before {
+    content: '⭐';
+    position: absolute;
+    font-size: 44px;
+    z-index: 1;
+    filter: drop-shadow(0 0 8px rgba(255, 220, 50, 0.8));
+    transition: opacity 0.3s ease;
+}
+
+.item-img img {
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+/* Wenn Bild sichtbar → Fragezeichen ausblenden */
+.item-img.aufgedeckt::before {
+    opacity: 0;
+}
+
+.item-img:hover {
+    transform: scale(1.07);
+    background: rgba(100, 70, 220, 0.2);
+    border-color: rgba(180, 150, 255, 0.6);
+    box-shadow: 0 0 25px rgba(120, 80, 255, 0.4);
+}
+
+/* Win Screen */
+.showwinnitem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Win Karte */
+.win-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 50px 60px 40px;
+    border-radius: 28px;
+    max-width: 480px;
+    width: 100%;
+    overflow: hidden;
+
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 12px 48px rgba(0,0,0,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+
+    animation: cardSlideIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+/* Schwebende Partikel */
+.win-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.win-particle {
+    position: absolute;
+    font-size: 22px;
+    animation: particleFloat calc(2.5s + var(--i) * 0.3s) ease-in-out infinite alternate;
+    left: calc(5% + var(--i) * 9%);
+    top: calc(10% + (var(--i) * 13%) % 80%);
+    opacity: 0.75;
+}
+
+/* Trophy */
+.win-trophy {
+    font-size: 90px;
+    line-height: 1;
+    animation: trophyBounce 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.2s both,
+               trophyFloat 3s ease-in-out 1s infinite;
+    filter: drop-shadow(0 0 20px rgba(255, 200, 0, 0.7));
+}
+
+/* Sterne */
+.win-stars {
+    font-size: 28px;
+    letter-spacing: 10px;
+    animation: starsIn 0.6s ease 0.6s both;
+}
+
+/* Titel */
+.win-title {
+    font-size: 36px;
+    font-weight: 800;
+    color: white;
+    text-align: center;
+    letter-spacing: 1px;
+    margin: 0;
+
+    background: linear-gradient(90deg, #ffd700, #ff9de2, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200%;
+
+    animation: slideUp 0.6s ease 0.7s both, shimmer 3s linear 1.5s infinite;
+}
+
+/* Untertitel */
+.win-sub {
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    margin: 0;
+    animation: slideUp 0.6s ease 0.9s both;
+}
+
+/* Win-Button Einblenden */
+.win-btn {
+    margin-top: 10px;
+    font-size: 17px;
+    animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+/* Spielzeit-Anzeige */
+.win-time {
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    letter-spacing: 0.5px;
+    padding: 8px 22px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    animation: slideUp 0.6s ease 0.4s both;
+}
+
+/* Fettschrift in win-time und showRekord */
+.win-time strong,
+.showRekord strong {
+    color: #ffd700;
+}
+
+/* Rekord-Anzeige */
+.showRekord {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 0.3px;
+    padding: 10px 20px;
+    border-radius: 14px;
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    box-shadow: 0 0 14px rgba(255, 200, 0, 0.15);
+
+    background-clip: padding-box;
+    color: #ffd97d;
+
+    animation: slideUp 0.6s ease 0.5s both;
+}
+
+/* Altes .winntext bleibt für Kompatibilität */
+.winntext { display: none; }
+
+/* Win-Button Sonderfarbe */
+.startBotton {
+    background: linear-gradient(135deg, #ffd700, #ff9de2, #a78bfa);
+    background-size: 200%;
+}
+
+/* Player Container */
+.playerContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    width: fit-content;
+    padding: 32px 54px;
+    border-radius: 28px;
+
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+    color: white;
+    text-align: center;
+    animation: cardSlideIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+.playerTitle {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 1px;
+
+    background: linear-gradient(90deg, #ffd700, #ff9de2, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200%;
+
+    animation: shimmer 4s linear infinite;
+}
+
+.playerName {
+    padding: 10px 18px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    outline: none;
+    text-align: center;
+    width: 220px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.playerName::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.playerName:focus {
+    border-color: rgba(167, 139, 250, 0.7);
+    box-shadow: 0 0 16px rgba(124, 77, 255, 0.45);
+}
+
+.playerContainer span {
+    font-size: 13px;
+    font-weight: 600;
+    color: #ff6b6b;
+    letter-spacing: 0.4px;
+    min-height: 18px;
+    animation: slideUp 0.3s ease both;
+}
+
+/* Animationen */
+@keyframes popIn {
+    0%   { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1);   opacity: 1; }
+}
+
+@keyframes glow {
+    0%   { box-shadow: 0 0 10px rgba(100,70,220,0.3); }
+    100% { box-shadow: 0 0 40px rgba(167,139,250,0.8); }
+}
+
+@keyframes cardSlideIn {
+    0%   { transform: translateY(60px) scale(0.85); opacity: 0; }
+    100% { transform: translateY(0)    scale(1);    opacity: 1; }
+}
+
+@keyframes trophyBounce {
+    0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+    100% { transform: scale(1) rotate(0deg);   opacity: 1; }
+}
+
+@keyframes trophyFloat {
+    0%,100% { transform: translateY(0)    rotate(-3deg); }
+    50%      { transform: translateY(-12px) rotate(3deg); }
+}
+
+@keyframes starsIn {
+    0%   { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideUp {
+    0%   { transform: translateY(24px); opacity: 0; }
+    100% { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes shimmer {
+    0%   { background-position: 0%   center; }
+    100% { background-position: 200% center; }
+}
+
+@keyframes particleFloat {
+    0%   { transform: translateY(0)    rotate(0deg)   scale(1);    opacity: 0.6; }
+    100% { transform: translateY(-30px) rotate(20deg) scale(1.2);  opacity: 1;   }
+}

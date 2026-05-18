@@ -1,0 +1,45 @@
+import scrapy
+
+
+class MiniluSpider(scrapy.Spider):
+    name = "minilu"
+    start_urls = [
+        "https://www.minilu.de/shop/verbrauchsmaterial/praxisbedarf/hygiene-arbeitsschutz/hygienezubehoer"
+    ]
+
+    def parse(self, response):
+        for product in response.css("div.flex.flex-col.flex-auto"):
+            # Produkt-Link holen
+            relative_url = product.css("a.font-bold.mt-sm::attr(href)").get()
+            if relative_url:
+                # Vollständige URL bauen
+                product_url = response.urljoin(relative_url)
+                # Request an die Produktseite senden, parse_product aufrufen
+                yield scrapy.Request(
+                    product_url,
+                    callback=self.parse_product,
+                    meta={
+                        "name": product.css("a.font-bold::text").get(),
+                        "uvp": product.css("b.line-through.ml-2xs::text").get(),
+                        "price": product.css("div.font-bold.text-right.font-deco-alt::text").get(),
+                        "product_url": product_url
+                    }
+                )
+
+    def parse_product(self, response):
+        # Holen der bereits übergebenen Daten
+        item = {
+            "name": response.meta["name"],
+            "uvp": response.meta["uvp"],
+            "price": response.meta["price"],
+            "product_url": response.meta["product_url"],
+            # Beschreibung holen (alle Textteile im Container)
+      #      "beschreibung": response.css("div.wysiwyg.wysiwyg-wrapper≈::text")g.et().strip(),
+              "produktinformation":response.css("div.px-md.md\\:px-0.wysiwyg.wysiwyg-wrapper.\\!px-0::text").get().strip(),
+
+      # Technische Daten / Packungsmaße
+             #  "technische_daten": " ".join(response.css("div.wysiwyg.wysiwyg-wrapper *::text").getall()).strip()
+                "technische_daten":   response.css("div.px-md.md\\:px-0.wysiwyg.wysiwyg-wrapper.\\!px-0::text").get().strip()
+
+        }
+        yield item
